@@ -11,6 +11,7 @@
             "request": "launch",
             "project": "${workspaceFolder}",
             "port": 6006,
+            "debugServer": 6006,
             "address": "127.0.0.1",
             "additional_options": "",
         }
