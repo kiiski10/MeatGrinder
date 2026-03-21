@@ -14,8 +14,6 @@ func _ready() -> void:
 		var x: int = rng.randi_range(20,1200)
 		var y: int = rng.randi_range(20,700)
 		fighter.position = Vector2(x, y)
-		target_area.body_entered.connect(fighter._on_global_target_area_2d_body_entered)
-		target_area.body_exited.connect(fighter._on_global_target_area_2d_body_exited)
 		add_child(fighter)
 
 
