@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpkcoqngbqwlt"]
+
+[ext_resource type="Texture2D" uid="uid://dpe3yeljdx0oy" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Players/Tiles/tile_0000.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://513gvfr5qb4a" path="res://scenes/fighter.gd" id="1_dqkch"]
+[ext_resource type="Texture2D" uid="uid://b58d6ok35d7ew" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0076.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://deacuaevvjhcw" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0009.png" id="3_dqkch"]
+
+[node name="Fighter" type="CharacterBody2D"]
+script = ExtResource("1_dqkch")
+
+[node name="CharacterSprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = ExtResource("1_3vyb7")
+offset = Vector2(0, -6.895)
+
+[node name="ClothesSprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -4)
+texture = ExtResource("2_qhqgy")
+offset = Vector2(-0.01, -4.45)
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -6)
+texture = ExtResource("3_dqkch")
+offset = Vector2(9, -1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(0, -5)
+polygon = PackedVector2Array(-7, -6, 6, -6, 11, 1, 11, 6, 8, 12, -7, 12, -10, 10, -10, 5, -7, 1)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 20.0
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.800891, 0.0005818045, 0.81620604, 1)
+debug_path_custom_line_width = 2.0
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 30.0
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

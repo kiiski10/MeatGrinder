@@ -1,0 +1,118 @@
+[gd_scene load_steps=12 format=3 uid="uid://plxalao72def"]
+
+[ext_resource type="Script" uid="uid://daev6vfwkb1ay" path="res://scenes/arena.gd" id="1_xdvfk"]
+[ext_resource type="Script" uid="uid://dvjymsotqrf80" path="res://scenes/attack_target.gd" id="3_4ag8t"]
+[ext_resource type="Texture2D" uid="uid://36a2486tm3hr" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0024.png" id="4_7ft05"]
+[ext_resource type="Texture2D" uid="uid://cvjduer78kv0y" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0064.png" id="4_xdvfk"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4ag8t"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dpxgc"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oexds"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_naajo"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
+size = Vector2(43, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ft05"]
+size = Vector2(16, 16)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xdvfk"]
+vertices = PackedVector2Array(793.03906, 306, 803.8594, 498.53906, 756.39844, 587.22656, 667, 517, 667, 417, 693, 306, 791.96094, 49, 1270, 10, 1270, 710, 1031.5313, 617.7969, 10, 10, 693, 49, 9.9921875, 710.9922, 567, 417, 985.21094, 705.4297, 567, 517)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(0, 6, 7, 8, 9, 1), PackedInt32Array(10, 7, 6, 11), PackedInt32Array(12, 10, 11, 5, 13), PackedInt32Array(14, 9, 8), PackedInt32Array(14, 8, 12), PackedInt32Array(2, 14, 12), PackedInt32Array(3, 2, 12, 15), PackedInt32Array(5, 4, 13), PackedInt32Array(12, 13, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1280, 0, 1280, 720, 0, 721)])
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_xdvfk")
+
+[node name="BottomWorldBoundaryStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(34, 721)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWorldBoundaryStaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_4ag8t")
+
+[node name="TopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWorldBoundaryStaticBody2D"]
+position = Vector2(57, 0)
+shape = SubResource("WorldBoundaryShape2D_dpxgc")
+
+[node name="LeftTopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTopWorldBoundaryStaticBody2D"]
+position = Vector2(0, 349)
+shape = SubResource("WorldBoundaryShape2D_oexds")
+
+[node name="RightTopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightTopWorldBoundaryStaticBody2D"]
+position = Vector2(1280, 377)
+shape = SubResource("WorldBoundaryShape2D_naajo")
+
+[node name="GlobalTargetArea2D" type="Area2D" parent="."]
+position = Vector2(15, -42)
+script = ExtResource("3_4ag8t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GlobalTargetArea2D"]
+position = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="Sprite2D" type="Sprite2D" parent="GlobalTargetArea2D"]
+scale = Vector2(2.6875, 2.375)
+texture = ExtResource("4_7ft05")
+offset = Vector2(0.55814075, 0.42105198)
+
+[node name="WallStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(617, 467)
+scale = Vector2(5, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="WallStaticBody2D"]
+texture = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallStaticBody2D"]
+shape = SubResource("RectangleShape2D_7ft05")
+
+[node name="WallStaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(743, 176.99998)
+scale = Vector2(5, 14.84)
+
+[node name="Sprite2D" type="Sprite2D" parent="WallStaticBody2D2"]
+texture = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallStaticBody2D2"]
+shape = SubResource("RectangleShape2D_7ft05")
+
+[node name="WallStaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(894, 601)
+rotation = -1.090703
+scale = Vector2(5, 14.84)
+
+[node name="Sprite2D" type="Sprite2D" parent="WallStaticBody2D3"]
+texture = ExtResource("4_xdvfk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallStaticBody2D3"]
+shape = SubResource("RectangleShape2D_7ft05")
+
+[node name="NavigationRegions" type="Node2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="NavigationRegions"]
+navigation_polygon = SubResource("NavigationPolygon_xdvfk")
+
+[node name="Polygon2D" type="Polygon2D" parent="NavigationRegions/NavigationRegion2D"]
+position = Vector2(577, 427)
+polygon = PackedVector2Array(0, 0, 80, 0, 80, 80, 0, 80)
+
+[node name="Polygon2D2" type="Polygon2D" parent="NavigationRegions/NavigationRegion2D"]
+position = Vector2(743, 176.99998)
+scale = Vector2(5, 14.84)
+polygon = PackedVector2Array(-8, -7.951482, 7.800003, -7.951482, 8.000015, 8.018869, -8, 8.018869)
+
+[node name="Polygon2D3" type="Polygon2D" parent="NavigationRegions/NavigationRegion2D"]
+position = Vector2(889, 598)
+polygon = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
+uv = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
