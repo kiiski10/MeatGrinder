@@ -44,8 +44,6 @@ func _physics_process(_delta: float) -> void:
 
 
 func update_debug_label() -> void:
-	#debug_lines.append("Next path: " + str(next_path_position))
-	#debug_lines.append("Navigation finished: " + str(nav_agent.is_navigation_finished()))
 	debug_lines.append(status)
 	debug_label.text = name + "\n"
 	for line in debug_lines:
@@ -65,5 +63,4 @@ func navigate() -> void:
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
-	#debug_lines.append("Safe velocity: " + str(safe_velocity))
 	velocity = safe_velocity
