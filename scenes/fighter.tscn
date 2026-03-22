@@ -3,10 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://dpe3yeljdx0oy" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Players/Tiles/tile_0000.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://513gvfr5qb4a" path="res://scenes/fighter.gd" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://b58d6ok35d7ew" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0076.png" id="2_qhqgy"]
+[ext_resource type="Resource" uid="uid://c5woqry7t45ay" path="res://data/names.tres" id="2_tlqsq"]
 [ext_resource type="Texture2D" uid="uid://deacuaevvjhcw" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0009.png" id="3_dqkch"]
 
 [node name="Fighter" type="CharacterBody2D" unique_id=622994157]
 script = ExtResource("1_dqkch")
+name_db = ExtResource("2_tlqsq")
 
 [node name="CharacterSprite2D" type="Sprite2D" parent="." unique_id=1467461145]
 position = Vector2(0, 2)

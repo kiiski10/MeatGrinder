@@ -10,13 +10,16 @@ var next_path_position: Vector2
 var new_velocity: Vector2 = Vector2.ZERO
 var debug_label: Label
 var debug_lines: Array = []
+@export var name_db: NameDatabase
 
 
 func _ready() -> void:
 	target = $"../GlobalTargetArea2D"
 	nav_agent = $NavigationAgent2D
 	nav_agent.velocity_computed.connect(self._on_navigation_agent_2d_velocity_computed)
-	debug_label = $Label
+	debug_label = $Label	
+	# Pick a name for the fighter
+	name = name_db.first_names.pick_random() + " " + name_db.last_names.pick_random()
 
 
 func _physics_process(_delta: float) -> void:
@@ -29,8 +32,8 @@ func _physics_process(_delta: float) -> void:
 func update_debug_label() -> void:
 	#debug_lines.append("Target reached: " + str(target_reached))
 	#debug_lines.append("Next path: " + str(next_path_position))
-	debug_lines.append("Navigation finished: " + str(nav_agent.is_navigation_finished()))
-	debug_label.text = ""
+	#debug_lines.append("Navigation finished: " + str(nav_agent.is_navigation_finished()))
+	debug_label.text = name + "\n"
 	for line in debug_lines:
 		debug_label.text += str(line) + "\n"
 	debug_lines = []
