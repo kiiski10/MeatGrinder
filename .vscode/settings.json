@@ -1,6 +1,5 @@
 {
   "files.exclude": {
-    "**/*.tscn": true,
     "**/*.uid": true
   }
 }
