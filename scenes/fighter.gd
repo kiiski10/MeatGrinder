@@ -4,6 +4,7 @@ var health: int = 100
 var base_speed: int = 100
 var target: Area2D
 var direction: Vector2
+var turn_speed: float = 5.0
 var nav_agent: NavigationAgent2D
 var next_path_position: Vector2
 var new_velocity: Vector2 = Vector2.ZERO
@@ -31,7 +32,8 @@ func _physics_process(_delta: float) -> void:
 	update_debug_label()
 	navigate()
 	if status == "NAVIGATING":
-		look_at(next_path_position)
+		var desired_angle: float = (next_path_position - global_position).angle()
+		rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * _delta, 0, 1))
 		move_and_slide()
 	elif status == "FIGHTING":
 		fight()
