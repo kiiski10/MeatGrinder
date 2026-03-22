@@ -35,7 +35,6 @@ target_desired_distance = 20.0
 avoidance_enabled = true
 radius = 12.0
 neighbor_distance = 150.0
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.800891, 0.0005818045, 0.81620604, 1)
 debug_path_custom_line_width = 2.0
