@@ -12,6 +12,7 @@ var debug_label: Label
 var debug_lines: Array = []
 @export var name_db: NameDatabase
 var status: String # IDLE, NAVIGATING, FIGHTING
+var blood_particles: GPUParticles2D
 
 
 func _ready() -> void:
@@ -19,25 +20,38 @@ func _ready() -> void:
 	nav_agent = $NavigationAgent2D
 	nav_agent.velocity_computed.connect(self._on_navigation_agent_2d_velocity_computed)
 	debug_label = $Label
+	blood_particles = $BloodGPUParticles2D
 	# Pick a name for the fighter
 	name = name_db.first_names.pick_random() + " " + name_db.last_names.pick_random()
 	status = "IDLE"
 
 
-func fight() -> void:
-	pass # TODO: Implement fighting logic
+func fight(delta: float) -> void:
+	# Turn towards the target
+	var desired_angle: float = (target.position - global_position).angle()
+	rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * delta, 0, 1))
+
+	# Hit the target
+	# Spawn gpu particles for blood and play hit sound here
 
 
-func _physics_process(_delta: float) -> void:
+func _on_hit() -> void:
+	blood_particles.emitting = true
+	health -= 10
+	if health <= 0:
+		queue_free()
+
+
+func _physics_process(delta: float) -> void:
 	update_debug_label()
 	navigate()
 	if status == "NAVIGATING":
 		var desired_angle: float = (next_path_position - global_position).angle()
-		rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * _delta, 0, 1))
+		rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * delta, 0, 1))
 		move_and_slide()
 	elif status == "FIGHTING":
-		fight()
-	
+		fight(delta)
+
 	# Keep label on top of the fighter and rotate it right side up
 	debug_label.rotation = -rotation
 	debug_label.global_position = global_position + Vector2(-15, -32)

@@ -6,6 +6,17 @@
 [ext_resource type="Resource" uid="uid://c5woqry7t45ay" path="res://data/names.tres" id="2_tlqsq"]
 [ext_resource type="Texture2D" uid="uid://deacuaevvjhcw" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0009.png" id="3_dqkch"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tlqsq"]
+particle_flag_rotate_y = true
+particle_flag_damping_as_friction = true
+spread = 1.627
+radial_velocity_min = -26.400023
+radial_velocity_max = 83.629974
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.1499977
+linear_accel_max = 9.169997
+scale_max = 5.0
+
 [node name="Fighter" type="CharacterBody2D" unique_id=622994157]
 script = ExtResource("1_dqkch")
 name_db = ExtResource("2_tlqsq")
@@ -46,4 +57,12 @@ offset_top = -33.0
 offset_right = 92.0
 offset_bottom = -10.0
 scale = Vector2(0.435, 0.435)
-text = "Debug label"
+text = "Fighter Fightersson"
+
+[node name="BloodGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1756966611]
+modulate = Color(0.7126067, 0, 0.012155903, 1)
+emitting = false
+amount = 100
+lifetime = 0.50
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_tlqsq")
