@@ -12,7 +12,11 @@ var teams: Array = [
 	{
 		"name": "Blue",
 		"color": Color(0, 0, 1)
-	}
+	},
+	# {
+	# 	"name": "Green",
+	# 	"color": Color(0, 1, 0)
+	# },
 ]
 
 
