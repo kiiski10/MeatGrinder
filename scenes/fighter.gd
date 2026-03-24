@@ -3,6 +3,7 @@ extends CharacterBody2D
 var health: int = 100
 var base_speed: int = 100
 var target: Area2D
+var color: Color
 var direction: Vector2
 var turn_speed: float = 5.0
 var nav_agent: NavigationAgent2D
@@ -16,7 +17,7 @@ var blood_particles: GPUParticles2D
 
 
 func _ready() -> void:
-	target = $"../GlobalTargetArea2D"
+	target = $"../../GlobalTargetArea2D"
 	nav_agent = $NavigationAgent2D
 	nav_agent.velocity_computed.connect(self._on_navigation_agent_2d_velocity_computed)
 	debug_label = $Label

@@ -1,20 +1,26 @@
 extends Node2D
 
-var fighter_count: int = 50
-var fighter_scene: PackedScene = load("res://scenes/fighter.tscn")
 var target_area: Area2D
+var team_script = preload("res://scenes/team.gd")
+var teams: Array = [
+	{
+		"name": "Red",
+		"color": Color(1, 0, 0)
+	},
+	{
+		"name": "Blue",
+		"color": Color(0, 0, 1)
+	}
+]
 
 
 func _ready() -> void:
 	target_area = $GlobalTargetArea2D
-	var rng = RandomNumberGenerator.new()
-
-	for i in fighter_count:
-		var fighter: CharacterBody2D = fighter_scene.instantiate()
-		var x: int = rng.randi_range(20,1200)
-		var y: int = rng.randi_range(20,700)
-		fighter.position = Vector2(x, y)
-		add_child(fighter)
+	for team in teams:
+		var new_team = team_script.new()
+		new_team.name = team["name"]
+		new_team.main_color = team["color"]
+		add_child(new_team)
 
 
 func _input(event):
