@@ -52,13 +52,22 @@ func _ready() -> void:
 			var x: int = rng.randi_range(20,1200)
 			var y: int = rng.randi_range(20,700)
 			fighter.position = Vector2(x, y)
-	fighter_spawn_timer = $FighterSpawnTimer
+	fighter_spawn_timer = Timer.new()
+	add_child(fighter_spawn_timer)
+	fighter_spawn_timer.wait_time = 1.0
 	fighter_spawn_timer.timeout.connect(_on_fighter_spawn_timer_timeout)
+	fighter_spawn_timer.one_shot = false
 	fighter_spawn_timer.start()
 
 
 func _on_fighter_spawn_timer_timeout():
-	create_fighter_to_team(team_instances.pick_random(), Vector2(randf_range(20,1200), randf_range(20,700)))
+	create_fighter_to_team(
+		team_instances[0],
+		Vector2(
+			randf_range(20,100),
+			randf_range(20,700)
+		)
+	)
 
 
 func _input(event):

@@ -6,7 +6,7 @@ func _input(event):
 		position = event.position
 	elif Input.is_action_just_pressed("Click"):
 		print("Clicked at: ", position)
-		var random_team = arena.team_instances.pick_random()
+		var random_team = arena.team_instances[1]
 		arena.create_fighter_to_team(
 			random_team,
 			event.position
