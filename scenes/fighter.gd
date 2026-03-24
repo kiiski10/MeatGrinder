@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-var health: int = 100
+var health: float = 100
 var base_speed: int = 100
-var target: Area2D
+var target: CharacterBody2D
 var color: Color
 var direction: Vector2
 var turn_speed: float = 5.0
@@ -14,31 +14,41 @@ var debug_lines: Array = []
 @export var name_db: NameDatabase
 var status: String # IDLE, NAVIGATING, FIGHTING
 var blood_particles: GPUParticles2D
+var team: Node
+var search_range: float = 200.0
 
 
 func _ready() -> void:
-	target = $"../../GlobalTargetArea2D"
+	target = find_new_target(search_range)
 	nav_agent = $NavigationAgent2D
 	nav_agent.velocity_computed.connect(self._on_navigation_agent_2d_velocity_computed)
 	debug_label = $Label
+	debug_label.self_modulate = color
 	blood_particles = $BloodGPUParticles2D
 	# Pick a name for the fighter
 	name = name_db.first_names.pick_random() + " " + name_db.last_names.pick_random()
 	status = "IDLE"
 
 
-func fight(delta: float) -> void:
-	# Turn towards the target
+func fight(delta: float) -> void:	
 	var desired_angle: float = (target.position - global_position).angle()
-	rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * delta, 0, 1))
+	rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * delta, 0, 1)) # Turn towards the target
+	var damage: float = 5.0 # TODO: This should be adjusted based on the fighter's stats and weapon
+	target.take_hit(damage)
 
-	# Hit the target
-	# Spawn gpu particles for blood and play hit sound here
+
+func find_new_target(radius: float) -> Node2D:
+	var enemy_team = team.enemy_teams.pick_random()
+	var enemies_in_range = enemy_team.get_children().filter(func(e):
+		return e.global_position.distance_to(global_position) < radius
+	)
+	return enemies_in_range.pick_random()
 
 
-func _on_hit() -> void:
+func take_hit(damage: float) -> void:
 	blood_particles.emitting = true
-	health -= 10
+	var damage_received: float = damage # TODO: This should be adjusted based on the fighter's stats and armor
+	health -= damage_received
 	if health <= 0:
 		queue_free()
 
@@ -47,11 +57,18 @@ func _physics_process(delta: float) -> void:
 	update_debug_label()
 	navigate()
 	if status == "NAVIGATING":
+		if not target:
+			status = "IDLE"
 		var desired_angle: float = (next_path_position - global_position).angle()
 		rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * delta, 0, 1))
 		move_and_slide()
 	elif status == "FIGHTING":
-		fight(delta)
+		if not target:
+			status = "IDLE"
+		else:
+			fight(delta)
+	elif status == "IDLE":
+		target = find_new_target(search_range)
 
 	# Keep label on top of the fighter and rotate it right side up
 	debug_label.rotation = -rotation
@@ -67,6 +84,10 @@ func update_debug_label() -> void:
 
 
 func navigate() -> void:
+	if not target:
+		status = "IDLE"
+		return
+	debug_lines.append("TRGT: " + target.name)
 	nav_agent.target_position = target.position
 	if not nav_agent.is_navigation_finished():
 		status = "NAVIGATING"
