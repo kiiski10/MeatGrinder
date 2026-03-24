@@ -1,6 +1,17 @@
 extends Area2D
-#if body.collision_layer == 1
+var arena: Node
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		position = event.position
+	elif Input.is_action_just_pressed("Click"):
+		print("Clicked at: ", position)
+		var random_team = arena.team_instances.pick_random()
+		arena.create_fighter_to_team(
+			random_team,
+			event.position
+
+		)
+
+func _ready() -> void:
+	arena = get_parent()
