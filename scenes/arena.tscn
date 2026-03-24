@@ -117,3 +117,6 @@ polygon = PackedVector2Array(-8, -7.951482, 7.800003, -7.951482, 8.000015, 8.018
 position = Vector2(889, 598)
 polygon = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
 uv = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
+
+[node name="FighterSpawnTimer" type="Timer" parent="." unique_id=1489700595]
+wait_time = 1.0

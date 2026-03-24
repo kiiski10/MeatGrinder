@@ -5,6 +5,7 @@ var team_script = preload("res://scenes/team.gd")
 var fighter_scene: PackedScene = load("res://scenes/fighter.tscn")
 var fighter_count: int = 25
 var team_instances: Array = []
+var fighter_spawn_timer: Timer
 var teams: Array = [
 	{
 		"name": "Red",
@@ -51,6 +52,13 @@ func _ready() -> void:
 			var x: int = rng.randi_range(20,1200)
 			var y: int = rng.randi_range(20,700)
 			fighter.position = Vector2(x, y)
+	fighter_spawn_timer = $FighterSpawnTimer
+	fighter_spawn_timer.timeout.connect(_on_fighter_spawn_timer_timeout)
+	fighter_spawn_timer.start()
+
+
+func _on_fighter_spawn_timer_timeout():
+	create_fighter_to_team(team_instances.pick_random(), Vector2(randf_range(20,1200), randf_range(20,700)))
 
 
 func _input(event):
