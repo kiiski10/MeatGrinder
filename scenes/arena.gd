@@ -1,6 +1,5 @@
 extends Node2D
 
-var target_area: Area2D
 var team_script = preload("res://scenes/team.gd")
 var fighter_scene: PackedScene = load("res://scenes/fighter.tscn")
 var fighter_count: int = 25
