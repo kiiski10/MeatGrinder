@@ -37,7 +37,7 @@ func _ready() -> void:
 	set_status("IDLE")
 
 
-func fight(delta: float) -> void:	
+func fight(delta: float) -> void:
 	var desired_angle: float = (target.position - global_position).angle()
 	rotation = lerp_angle(rotation, desired_angle, clamp(turn_speed * delta, 0, 1)) # Turn towards the target
 	var damage: float = 5.0 # TODO: This should be adjusted based on the fighter's stats and weapon
@@ -49,6 +49,8 @@ func find_new_target(radius: float) -> Node2D:
 	var enemies_in_range = enemy_team.get_children().filter(func(e):
 		return e.global_position.distance_to(global_position) < radius
 	)
+	if enemies_in_range.size() == 0:
+		return null
 	return enemies_in_range.pick_random()
 
 
