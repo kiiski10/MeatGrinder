@@ -1,7 +1,7 @@
 class_name Fighter extends CharacterBody2D
 
+@onready var health: HealthComponent = %HealthComponent
 @onready var movement: MovementComponent = %MovementComponent
-var health: float = 100
 var base_speed: int = 100
 var target: CharacterBody2D
 var color: Color
@@ -54,9 +54,7 @@ func find_new_target(radius: float) -> Node2D:
 func take_hit(damage: float) -> void:
 	blood_particles.emitting = true
 	var damage_received: float = damage # TODO: This should be adjusted based on the fighter's stats and armor
-	health -= damage_received
-	if health <= 0:
-		queue_free()
+	health.update(-damage_received)
 
 
 func _on_increase_search_range_timer_timeout():
