@@ -1,6 +1,6 @@
 class_name LabelComponent extends Node
 
-@export var body: CharacterBody2D
+var body: CharacterBody2D
 var rows: Array = []
 var label: Label
 var settings: LabelSettings
@@ -9,6 +9,7 @@ var settings: LabelSettings
 
 
 func _ready() -> void:
+	body = get_parent() as CharacterBody2D
 	label = Label.new()
 	settings = LabelSettings.new()
 	settings.font_size = font_size

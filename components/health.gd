@@ -2,8 +2,12 @@ class_name HealthComponent extends Node
 
 
 @export var max_health: float = 100
-@export var body: CharacterBody2D
+var body: CharacterBody2D
 var current_health: float = max_health
+
+
+func _ready():
+	body = get_parent() as CharacterBody2D
 
 
 func update(change_amount: float) -> void:

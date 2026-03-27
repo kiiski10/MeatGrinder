@@ -2,10 +2,11 @@ class_name MovementComponent extends Node
 
 @export var speed: float = 100
 @export var turn_speed: float = 5.0
-@export var body: CharacterBody2D
+var body: CharacterBody2D
 
 
 func _ready() -> void:
+	body = get_parent() as CharacterBody2D
 	pass # Replace with function body.
 
 
