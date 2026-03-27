@@ -1,4 +1,6 @@
-extends Node2D
+class_name Arena extends Node2D
+@onready var input: InputComponent = $InputComponent
+
 
 var team_script = preload("res://scenes/team.gd")
 var fighter_scene: PackedScene = load("res://scenes/fighter.tscn")
@@ -69,15 +71,11 @@ func _on_fighter_spawn_timer_timeout():
 	)
 
 
-func _input(event):
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == 1:
-			print("Mouse btn 1 down at: ", event.position)
-		elif event.button_index == 2:
-			print("Mouse btn 2 down at: ", event.position)
-
-
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("exit_game"):
+	if input.exit_game_pressed:
 		print("Bye!")
 		get_tree().quit()
+
+
+func physics_process(_delta: float) -> void:
+	input.update()

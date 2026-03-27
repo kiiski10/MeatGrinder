@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://plxalao72def"]
 
 [ext_resource type="Script" uid="uid://daev6vfwkb1ay" path="res://scenes/arena.gd" id="1_xdvfk"]
-[ext_resource type="Script" uid="uid://dvjymsotqrf80" path="res://scenes/attack_target.gd" id="3_4ag8t"]
-[ext_resource type="Texture2D" uid="uid://36a2486tm3hr" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0024.png" id="4_7ft05"]
 [ext_resource type="Texture2D" uid="uid://cvjduer78kv0y" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0064.png" id="4_xdvfk"]
+[ext_resource type="PackedScene" uid="uid://c4qw0mb565gqc" path="res://components/mouse_cursor.tscn" id="5_4ag8t"]
 [ext_resource type="PackedScene" uid="uid://n25b4t8exj1d" path="res://scenes/factory.tscn" id="5_7ft05"]
+[ext_resource type="Script" uid="uid://rdx7ynbup6rq" path="res://components/input.gd" id="6_4ag8t"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4ag8t"]
 
@@ -16,9 +16,6 @@ normal = Vector2(1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_naajo"]
 normal = Vector2(-1, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
-size = Vector2(43, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ft05"]
 size = Vector2(16, 16)
@@ -55,19 +52,6 @@ shape = SubResource("WorldBoundaryShape2D_oexds")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightTopWorldBoundaryStaticBody2D" unique_id=1164352710]
 position = Vector2(1266, 377)
 shape = SubResource("WorldBoundaryShape2D_naajo")
-
-[node name="GlobalTargetArea2D" type="Area2D" parent="." unique_id=381460552]
-position = Vector2(15, -42)
-script = ExtResource("3_4ag8t")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GlobalTargetArea2D" unique_id=1544839726]
-position = Vector2(1.5, 1)
-shape = SubResource("RectangleShape2D_mx8sn")
-
-[node name="Sprite2D" type="Sprite2D" parent="GlobalTargetArea2D" unique_id=1455251554]
-scale = Vector2(2.6875, 2.375)
-texture = ExtResource("4_7ft05")
-offset = Vector2(0.55814075, 0.42105198)
 
 [node name="WallStaticBody2D" type="StaticBody2D" parent="." unique_id=452109296]
 position = Vector2(617, 467)
@@ -121,3 +105,10 @@ uv = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
 
 [node name="Factory" parent="." unique_id=475884043 instance=ExtResource("5_7ft05")]
 position = Vector2(1262, 1)
+
+[node name="InputComponent" type="Node" parent="." unique_id=518901300]
+script = ExtResource("6_4ag8t")
+metadata/_custom_type_script = "uid://rdx7ynbup6rq"
+
+[node name="MouseCursor" parent="." unique_id=230875929 node_paths=PackedStringArray("arena") instance=ExtResource("5_4ag8t")]
+arena = NodePath("..")

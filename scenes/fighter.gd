@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Fighter extends CharacterBody2D
 
 var health: float = 100
 var base_speed: int = 100
