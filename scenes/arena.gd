@@ -1,5 +1,5 @@
 class_name Arena extends Node2D
-@onready var input: InputComponent = $InputComponent
+@onready var input: InputComponent = %InputComponent
 
 
 var team_script = preload("res://scenes/team.gd")

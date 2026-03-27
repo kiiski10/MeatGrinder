@@ -107,6 +107,7 @@ uv = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
 position = Vector2(1262, 1)
 
 [node name="InputComponent" type="Node" parent="." unique_id=518901300]
+unique_name_in_owner = true
 script = ExtResource("6_4ag8t")
 metadata/_custom_type_script = "uid://rdx7ynbup6rq"
 
