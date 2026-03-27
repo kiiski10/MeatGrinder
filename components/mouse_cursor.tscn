@@ -5,12 +5,13 @@
 [ext_resource type="Script" uid="uid://rdx7ynbup6rq" path="res://components/input.gd" id="3_utdtv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1u82"]
-size = Vector2(43, 38)
+size = Vector2(42.5, 38)
 
 [node name="MouseCursor" type="Area2D" unique_id=1365782407]
 script = ExtResource("1_tw63r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1421914505]
+position = Vector2(1.75, 1)
 shape = SubResource("RectangleShape2D_d1u82")
 metadata/_edit_lock_ = true
 
