@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b58d6ok35d7ew" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0076.png" id="2_qhqgy"]
 [ext_resource type="Resource" uid="uid://c5woqry7t45ay" path="res://data/names.tres" id="2_tlqsq"]
 [ext_resource type="Texture2D" uid="uid://deacuaevvjhcw" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0009.png" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://rvk5kr6kjrl3" path="res://components/movement.gd" id="6_eelhu"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tlqsq"]
 particle_flag_rotate_y = true
@@ -67,3 +68,9 @@ amount = 100
 lifetime = 0.5
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_tlqsq")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=214217885 node_paths=PackedStringArray("body")]
+unique_name_in_owner = true
+script = ExtResource("6_eelhu")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://rvk5kr6kjrl3"
