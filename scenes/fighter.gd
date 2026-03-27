@@ -2,14 +2,14 @@ class_name Fighter extends CharacterBody2D
 
 @onready var health: HealthComponent = %HealthComponent
 @onready var movement: MovementComponent = %MovementComponent
+@onready var label: LabelComponent = %LabelComponent
+
 var base_speed: int = 100
 var target: CharacterBody2D
 var color: Color
 var nav_agent: NavigationAgent2D
 var next_path_position: Vector2
 var new_velocity: Vector2 = Vector2.ZERO
-var debug_label: Label
-var debug_lines: Array = []
 @export var name_db: NameDatabase
 var status: String # IDLE, NAVIGATING, FIGHTING
 var blood_particles: GPUParticles2D
@@ -22,12 +22,10 @@ func _ready() -> void:
 	target = find_new_target(search_range)
 	nav_agent = $NavigationAgent2D
 	nav_agent.velocity_computed.connect(self._on_navigation_agent_2d_velocity_computed)
-	debug_label = $Label
-	debug_label.self_modulate = color
 	blood_particles = $BloodGPUParticles2D
 	# Pick a name for the fighter
 	name = name_db.first_names.pick_random() + " " + name_db.last_names.pick_random()
-
+	label.set_color(team.main_color)
 	increase_search_range_timer = Timer.new()
 	increase_search_range_timer.wait_time = 0.5
 	increase_search_range_timer.timeout.connect(_on_increase_search_range_timer_timeout)
@@ -86,25 +84,19 @@ func _physics_process(delta: float) -> void:
 			fight(delta)
 	elif status == "IDLE":
 		target = find_new_target(search_range)
-
-	# Keep label on top of the fighter and rotate it right side up
-	debug_label.rotation = -rotation
-	debug_label.global_position = global_position + Vector2(-15, -32)
+	label.update()
 
 
 func update_debug_label() -> void:
-	debug_lines.append(status)
-	debug_label.text = name + "\n"
-	for line in debug_lines:
-		debug_label.text += str(line) + "\n"
-	debug_lines = []
+	label.add_row("Status: " + status)
 
 
 func navigate() -> void:
 	if not target:
 		set_status("IDLE")
 		return
-	debug_lines.append("TRGT: " + target.name)
+	label.add_row("TRGT: " + target.name)
+
 	nav_agent.target_position = target.position
 	if not nav_agent.is_navigation_finished():
 		set_status("NAVIGATING")

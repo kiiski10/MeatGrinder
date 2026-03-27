@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://deacuaevvjhcw" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0009.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://rvk5kr6kjrl3" path="res://components/movement.gd" id="6_eelhu"]
 [ext_resource type="Script" uid="uid://bi7u388ptfr76" path="res://components/health.gd" id="7_1bj3w"]
+[ext_resource type="Script" uid="uid://shxg107un8g6" path="res://components/label.gd" id="8_ql5yn"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tlqsq"]
 particle_flag_rotate_y = true
@@ -54,14 +55,6 @@ debug_use_custom = true
 debug_path_custom_color = Color(0.800891, 0.0005818045, 0.81620604, 1)
 debug_path_custom_line_width = 1.0
 
-[node name="Label" type="Label" parent="." unique_id=539381068]
-offset_left = -25.0
-offset_top = -33.0
-offset_right = 92.0
-offset_bottom = -10.0
-scale = Vector2(0.435, 0.435)
-text = "Fighter Fightersson"
-
 [node name="BloodGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1756966611]
 modulate = Color(0.7126067, 0, 0.012155903, 1)
 emitting = false
@@ -81,3 +74,9 @@ unique_name_in_owner = true
 script = ExtResource("7_1bj3w")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://bi7u388ptfr76"
+
+[node name="LabelComponent" type="Node" parent="." unique_id=731685394 node_paths=PackedStringArray("body")]
+unique_name_in_owner = true
+script = ExtResource("8_ql5yn")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://shxg107un8g6"
