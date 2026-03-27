@@ -43,6 +43,7 @@ offset = Vector2(9, -1)
 visible = false
 position = Vector2(0, -5)
 polygon = PackedVector2Array(-7, -6, 6, -6, 11, 1, 11, 6, 8, 12, -7, 12, -10, 10, -10, 5, -7, 1)
+metadata/_edit_lock_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=63748024]
 target_desired_distance = 30.0
@@ -62,6 +63,7 @@ amount = 100
 lifetime = 0.5
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_tlqsq")
+metadata/_edit_lock_ = true
 
 [node name="MovementComponent" type="Node" parent="." unique_id=214217885 node_paths=PackedStringArray("body")]
 unique_name_in_owner = true
