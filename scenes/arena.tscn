@@ -5,17 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c4qw0mb565gqc" path="res://components/mouse_cursor.tscn" id="5_4ag8t"]
 [ext_resource type="PackedScene" uid="uid://n25b4t8exj1d" path="res://scenes/factory.tscn" id="5_7ft05"]
 [ext_resource type="Script" uid="uid://rdx7ynbup6rq" path="res://components/input.gd" id="6_4ag8t"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4ag8t"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dpxgc"]
-normal = Vector2(0, 1)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oexds"]
-normal = Vector2(1, 0)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_naajo"]
-normal = Vector2(-1, 0)
+[ext_resource type="PackedScene" uid="uid://dmm33fkejvrbt" path="res://scenes/world_edges.tscn" id="6_dpxgc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ft05"]
 size = Vector2(16, 16)
@@ -28,30 +18,6 @@ agent_radius = 16.0
 
 [node name="Arena" type="Node2D" unique_id=1608466909]
 script = ExtResource("1_xdvfk")
-
-[node name="BottomWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=1286438411]
-position = Vector2(34, 721)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWorldBoundaryStaticBody2D" unique_id=805291315]
-shape = SubResource("WorldBoundaryShape2D_4ag8t")
-
-[node name="TopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=2143473421]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWorldBoundaryStaticBody2D" unique_id=1591264879]
-position = Vector2(57, 0)
-shape = SubResource("WorldBoundaryShape2D_dpxgc")
-
-[node name="LeftTopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=7070308]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTopWorldBoundaryStaticBody2D" unique_id=1538334287]
-position = Vector2(0, 349)
-shape = SubResource("WorldBoundaryShape2D_oexds")
-
-[node name="RightTopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=86289024]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightTopWorldBoundaryStaticBody2D" unique_id=1164352710]
-position = Vector2(1266, 377)
-shape = SubResource("WorldBoundaryShape2D_naajo")
 
 [node name="WallStaticBody2D" type="StaticBody2D" parent="." unique_id=452109296]
 position = Vector2(617, 467)
@@ -113,3 +79,9 @@ metadata/_custom_type_script = "uid://rdx7ynbup6rq"
 
 [node name="MouseCursor" parent="." unique_id=230875929 node_paths=PackedStringArray("arena") instance=ExtResource("5_4ag8t")]
 arena = NodePath("..")
+
+[node name="WorldEdgesComponent" parent="." unique_id=773001276 instance=ExtResource("6_dpxgc")]
+right_edge_position = 1264.0
+left_edge_position = 0.0
+top_edge_position = 0.0
+bottom_edge_position = 720.0
