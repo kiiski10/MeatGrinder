@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://rvk5kr6kjrl3" path="res://components/movement.gd" id="6_eelhu"]
 [ext_resource type="Script" uid="uid://bi7u388ptfr76" path="res://components/health.gd" id="7_1bj3w"]
 [ext_resource type="Script" uid="uid://shxg107un8g6" path="res://components/label.gd" id="8_ql5yn"]
+[ext_resource type="PackedScene" uid="uid://dbli376a1rtmb" path="res://components/navigation.tscn" id="9_3wvek"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tlqsq"]
 particle_flag_rotate_y = true
@@ -44,17 +45,6 @@ position = Vector2(-1, -6)
 texture = ExtResource("3_dqkch")
 offset = Vector2(9, -1)
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=63748024]
-target_desired_distance = 30.0
-path_max_distance = 10.0
-avoidance_enabled = true
-radius = 12.0
-neighbor_distance = 150.0
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(0.800891, 0.0005818045, 0.81620604, 1)
-debug_path_custom_line_width = 1.0
-
 [node name="BloodGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1756966611]
 modulate = Color(0.7126067, 0, 0.012155903, 1)
 emitting = false
@@ -83,3 +73,5 @@ metadata/_custom_type_script = "uid://shxg107un8g6"
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_ql5yn")
 metadata/_edit_lock_ = true
+
+[node name="NavigationComponent" parent="." unique_id=31903669 instance=ExtResource("9_3wvek")]

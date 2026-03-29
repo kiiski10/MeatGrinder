@@ -3,13 +3,11 @@ class_name Fighter extends CharacterBody2D
 @onready var health: HealthComponent = %HealthComponent
 @onready var movement: MovementComponent = %MovementComponent
 @onready var label: LabelComponent = %LabelComponent
+@onready var navigation: NavigationComponent = $NavigationComponent
 
 var base_speed: int = 100
 var target: CharacterBody2D
 var color: Color
-var nav_agent: NavigationAgent2D
-var next_path_position: Vector2
-var new_velocity: Vector2 = Vector2.ZERO
 @export var name_db: NameDatabase
 var status: String # IDLE, NAVIGATING, FIGHTING
 var blood_particles: GPUParticles2D
@@ -20,8 +18,6 @@ var increase_search_range_timer: Timer
 
 func _ready() -> void:
 	target = find_new_target(search_range)
-	nav_agent = $NavigationAgent2D
-	nav_agent.velocity_computed.connect(self._on_navigation_agent_2d_velocity_computed)
 	blood_particles = $BloodGPUParticles2D
 	# Pick a name for the fighter
 	name = name_db.first_names.pick_random() + " " + name_db.last_names.pick_random()
@@ -30,7 +26,6 @@ func _ready() -> void:
 	increase_search_range_timer.wait_time = 0.5
 	increase_search_range_timer.timeout.connect(_on_increase_search_range_timer_timeout)
 	add_child(increase_search_range_timer)
-
 	set_status("IDLE")
 
 
@@ -72,6 +67,7 @@ func set_status(new_status: String) -> void:
 
 func _physics_process(delta: float) -> void:
 	update_debug_label()
+	navigation.update()
 	navigate()
 	if status == "NAVIGATING":
 		if not target:
@@ -95,17 +91,10 @@ func navigate() -> void:
 	if not target:
 		set_status("IDLE")
 		return
-	label.add_row("TRGT: " + target.name)
+	else:
+		label.add_row("TRGT: " + target.name)
 
-	nav_agent.target_position = target.position
-	if not nav_agent.is_navigation_finished():
+	if not navigation.is_target_reached():
 		set_status("NAVIGATING")
-		next_path_position = nav_agent.get_next_path_position()
-		new_velocity = global_position.direction_to(next_path_position) * base_speed
-		nav_agent.set_velocity(new_velocity)
 	else:
 		set_status("FIGHTING")
-
-
-func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
-	velocity = safe_velocity
