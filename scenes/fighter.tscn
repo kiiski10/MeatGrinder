@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://bi7u388ptfr76" path="res://components/health.gd" id="7_1bj3w"]
 [ext_resource type="Script" uid="uid://shxg107un8g6" path="res://components/label.gd" id="8_ql5yn"]
 [ext_resource type="PackedScene" uid="uid://dbli376a1rtmb" path="res://components/navigation.tscn" id="9_3wvek"]
+[ext_resource type="Script" uid="uid://cndbamhevev6m" path="res://components/state.gd" id="10_06ufj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ql5yn"]
+size = Vector2(12, 14)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tlqsq"]
 particle_flag_rotate_y = true
@@ -21,12 +25,35 @@ linear_accel_min = 1.1499977
 linear_accel_max = 9.169997
 scale_max = 5.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ql5yn"]
-size = Vector2(12, 14)
-
 [node name="Fighter" type="CharacterBody2D" unique_id=622994157]
 script = ExtResource("1_dqkch")
 name_db = ExtResource("2_tlqsq")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=214217885]
+unique_name_in_owner = true
+script = ExtResource("6_eelhu")
+metadata/_custom_type_script = "uid://rvk5kr6kjrl3"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=955261490]
+unique_name_in_owner = true
+script = ExtResource("7_1bj3w")
+metadata/_custom_type_script = "uid://bi7u388ptfr76"
+
+[node name="LabelComponent" type="Node" parent="." unique_id=731685394]
+unique_name_in_owner = true
+script = ExtResource("8_ql5yn")
+metadata/_custom_type_script = "uid://shxg107un8g6"
+
+[node name="NavigationComponent" parent="." unique_id=31903669 instance=ExtResource("9_3wvek")]
+
+[node name="StateComponent" type="Node" parent="." unique_id=2059349865]
+script = ExtResource("10_06ufj")
+metadata/_custom_type_script = "uid://cndbamhevev6m"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1897707354]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ql5yn")
+metadata/_edit_lock_ = true
 
 [node name="CharacterSprite2D" type="Sprite2D" parent="." unique_id=1467461145]
 position = Vector2(0, 2)
@@ -53,25 +80,3 @@ lifetime = 0.5
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_tlqsq")
 metadata/_edit_lock_ = true
-
-[node name="MovementComponent" type="Node" parent="." unique_id=214217885]
-unique_name_in_owner = true
-script = ExtResource("6_eelhu")
-metadata/_custom_type_script = "uid://rvk5kr6kjrl3"
-
-[node name="HealthComponent" type="Node" parent="." unique_id=955261490]
-unique_name_in_owner = true
-script = ExtResource("7_1bj3w")
-metadata/_custom_type_script = "uid://bi7u388ptfr76"
-
-[node name="LabelComponent" type="Node" parent="." unique_id=731685394]
-unique_name_in_owner = true
-script = ExtResource("8_ql5yn")
-metadata/_custom_type_script = "uid://shxg107un8g6"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1897707354]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_ql5yn")
-metadata/_edit_lock_ = true
-
-[node name="NavigationComponent" parent="." unique_id=31903669 instance=ExtResource("9_3wvek")]
