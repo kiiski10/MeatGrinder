@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dbli376a1rtmb"]
+
+[ext_resource type="Script" uid="uid://bo85b1pq4jacd" path="res://components/navigation.gd" id="1_qy7m5"]
+
+[node name="NavigationComponent" type="NavigationAgent2D" unique_id=31903669]
+target_desired_distance = 30.0
+path_max_distance = 10.0
+avoidance_enabled = true
+radius = 12.0
+neighbor_distance = 150.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.800891, 0.0005818045, 0.81620604, 1)
+debug_path_custom_line_width = 1.0
+script = ExtResource("1_qy7m5")

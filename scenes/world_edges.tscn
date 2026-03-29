@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dmm33fkejvrbt"]
+
+[ext_resource type="Script" uid="uid://dwj0mjnsrl5ae" path="res://components/world_edges.gd" id="1_5cx2d"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kbr6g"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oev2g"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vdyby"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1tegm"]
+
+[node name="WorldEdgesComponent" type="StaticBody2D" unique_id=773001276]
+script = ExtResource("1_5cx2d")
+metadata/_custom_type_script = "uid://dwj0mjnsrl5ae"
+
+[node name="LeftEdge" type="CollisionShape2D" parent="." unique_id=97806240]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_kbr6g")
+metadata/_edit_lock_ = true
+
+[node name="RightEdge" type="CollisionShape2D" parent="." unique_id=1156179920]
+rotation = 4.712389
+shape = SubResource("WorldBoundaryShape2D_oev2g")
+metadata/_edit_lock_ = true
+
+[node name="TopEdge" type="CollisionShape2D" parent="." unique_id=816342222]
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_vdyby")
+metadata/_edit_lock_ = true
+
+[node name="BottomEdge" type="CollisionShape2D" parent="." unique_id=1322888044]
+shape = SubResource("WorldBoundaryShape2D_1tegm")
+metadata/_edit_lock_ = true

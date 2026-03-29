@@ -1,115 +1,44 @@
 [gd_scene format=3 uid="uid://plxalao72def"]
 
 [ext_resource type="Script" uid="uid://daev6vfwkb1ay" path="res://scenes/arena.gd" id="1_xdvfk"]
-[ext_resource type="Texture2D" uid="uid://cvjduer78kv0y" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0064.png" id="4_xdvfk"]
+[ext_resource type="PackedScene" uid="uid://c5d83o7t472o1" path="res://components/wall.tscn" id="4_4ag8t"]
 [ext_resource type="PackedScene" uid="uid://c4qw0mb565gqc" path="res://components/mouse_cursor.tscn" id="5_4ag8t"]
 [ext_resource type="PackedScene" uid="uid://n25b4t8exj1d" path="res://scenes/factory.tscn" id="5_7ft05"]
 [ext_resource type="Script" uid="uid://rdx7ynbup6rq" path="res://components/input.gd" id="6_4ag8t"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4ag8t"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dpxgc"]
-normal = Vector2(0, 1)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oexds"]
-normal = Vector2(1, 0)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_naajo"]
-normal = Vector2(-1, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ft05"]
-size = Vector2(16, 16)
+[ext_resource type="PackedScene" uid="uid://dmm33fkejvrbt" path="res://scenes/world_edges.tscn" id="6_dpxgc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xdvfk"]
-vertices = PackedVector2Array(673, 523, 1264, 704.0078, 16, 704.97656, 561, 523, 1264, 16, 799.0703, 312, 797.9297, 43, 673, 411, 687, 312, 16, 16, 687, 43, 479.64844, 243.28125, 561, 411, 427.7422, 341.4922, 241.38281, 118.46875, 188.22656, 217.75781)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 1, 5, 6), PackedInt32Array(5, 1, 0, 7, 8), PackedInt32Array(9, 4, 6, 10), PackedInt32Array(11, 10, 8, 7, 12, 13), PackedInt32Array(10, 11, 14), PackedInt32Array(9, 10, 14), PackedInt32Array(9, 14, 15), PackedInt32Array(2, 9, 15), PackedInt32Array(3, 2, 15, 13, 12)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1280, 0, 1280, 720, 0, 721)])
+vertices = PackedVector2Array(862.53906, 587.15625, 1264, 705, 16, 705, 231, 587.15625, 16, 16, 231, 426, 1264, 16, 862.53906, 426, 366, 273, 366, 161, 254, 273, 254, 161)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(8, 7, 5, 10), PackedInt32Array(10, 5, 4, 11), PackedInt32Array(11, 4, 6, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1280, 0, 1280, 721, 0, 721)])
 agent_radius = 16.0
 
 [node name="Arena" type="Node2D" unique_id=1608466909]
 script = ExtResource("1_xdvfk")
-
-[node name="BottomWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=1286438411]
-position = Vector2(34, 721)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWorldBoundaryStaticBody2D" unique_id=805291315]
-shape = SubResource("WorldBoundaryShape2D_4ag8t")
-
-[node name="TopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=2143473421]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWorldBoundaryStaticBody2D" unique_id=1591264879]
-position = Vector2(57, 0)
-shape = SubResource("WorldBoundaryShape2D_dpxgc")
-
-[node name="LeftTopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=7070308]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTopWorldBoundaryStaticBody2D" unique_id=1538334287]
-position = Vector2(0, 349)
-shape = SubResource("WorldBoundaryShape2D_oexds")
-
-[node name="RightTopWorldBoundaryStaticBody2D" type="StaticBody2D" parent="." unique_id=86289024]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightTopWorldBoundaryStaticBody2D" unique_id=1164352710]
-position = Vector2(1266, 377)
-shape = SubResource("WorldBoundaryShape2D_naajo")
-
-[node name="WallStaticBody2D" type="StaticBody2D" parent="." unique_id=452109296]
-position = Vector2(617, 467)
-scale = Vector2(5, 5)
-
-[node name="Sprite2D" type="Sprite2D" parent="WallStaticBody2D" unique_id=465350762]
-texture = ExtResource("4_xdvfk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallStaticBody2D" unique_id=462938835]
-shape = SubResource("RectangleShape2D_7ft05")
-
-[node name="WallStaticBody2D2" type="StaticBody2D" parent="." unique_id=1605257402]
-position = Vector2(743, 176.99998)
-scale = Vector2(5, 14.84)
-
-[node name="Sprite2D" type="Sprite2D" parent="WallStaticBody2D2" unique_id=1637921350]
-texture = ExtResource("4_xdvfk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallStaticBody2D2" unique_id=1057464335]
-shape = SubResource("RectangleShape2D_7ft05")
-
-[node name="WallStaticBody2D3" type="StaticBody2D" parent="." unique_id=1848412249]
-position = Vector2(334.99982, 230.99991)
-rotation = -1.090703
-scale = Vector2(5, 14.84)
-
-[node name="Sprite2D" type="Sprite2D" parent="WallStaticBody2D3" unique_id=1780122155]
-texture = ExtResource("4_xdvfk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallStaticBody2D3" unique_id=1614337452]
-shape = SubResource("RectangleShape2D_7ft05")
-
-[node name="NavigationRegions" type="Node2D" parent="." unique_id=319389445]
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="NavigationRegions" unique_id=509115766]
-navigation_polygon = SubResource("NavigationPolygon_xdvfk")
-
-[node name="Polygon2D" type="Polygon2D" parent="NavigationRegions/NavigationRegion2D" unique_id=689513608]
-position = Vector2(577, 427)
-polygon = PackedVector2Array(0, 0, 80, 0, 80, 80, 0, 80)
-
-[node name="Polygon2D2" type="Polygon2D" parent="NavigationRegions/NavigationRegion2D" unique_id=1117685766]
-position = Vector2(743, 176.99998)
-scale = Vector2(5, 14.84)
-polygon = PackedVector2Array(-8, -7.951482, 7.800003, -7.951482, 8.000015, 8.018869, -8, 8.018869)
-
-[node name="Polygon2D3" type="Polygon2D" parent="NavigationRegions/NavigationRegion2D" unique_id=488626848]
-position = Vector2(329, 226)
-polygon = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
-uv = PackedVector2Array(-81, -86, 129, 24, 92, 94, -119, -15)
-
-[node name="Factory" parent="." unique_id=475884043 instance=ExtResource("5_7ft05")]
-position = Vector2(1262, 1)
 
 [node name="InputComponent" type="Node" parent="." unique_id=518901300]
 unique_name_in_owner = true
 script = ExtResource("6_4ag8t")
 metadata/_custom_type_script = "uid://rdx7ynbup6rq"
 
+[node name="WorldEdgesComponent" parent="." unique_id=773001276 instance=ExtResource("6_dpxgc")]
+right_edge_position = 1264.0
+left_edge_position = 0.0
+top_edge_position = 0.0
+bottom_edge_position = 720.0
+
+[node name="Factory" parent="." unique_id=475884043 instance=ExtResource("5_7ft05")]
+position = Vector2(1262, 1)
+
 [node name="MouseCursor" parent="." unique_id=230875929 node_paths=PackedStringArray("arena") instance=ExtResource("5_4ag8t")]
 arena = NodePath("..")
+
+[node name="Floor" type="NavigationRegion2D" parent="." unique_id=1891196019]
+navigation_polygon = SubResource("NavigationPolygon_xdvfk")
+
+[node name="Wall" parent="Floor" unique_id=914078465 instance=ExtResource("4_4ag8t")]
+position = Vector2(270.00003, 177)
+
+[node name="Wall2" parent="Floor" unique_id=1082872051 instance=ExtResource("4_4ag8t")]
+position = Vector2(246.99998, 442)
+scale = Vector2(37.47111, 8.07293)
