@@ -4,7 +4,7 @@ class_name Arena extends Node2D
 
 var team_script = preload("res://scenes/team.gd")
 var fighter_scene: PackedScene = load("res://scenes/fighter.tscn")
-var fighter_count: int = 125
+var fighter_count: int = 25
 var team_instances: Array = []
 var fighter_spawn_timer: Timer
 var teams: Array = [
