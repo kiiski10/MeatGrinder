@@ -1,18 +1,38 @@
 extends Node2D
 
-var arena: Node2D
-var teams: Array
-var available_machines: Array
-var installed_machines: Array
-var inputs: Array
-var outputs: Array
-var conveyor_belt_sections: Array
+var conveyor_belt_scene: PackedScene = load("res://scenes/belt.tscn")
+var machine_scene: PackedScene = load("res://scenes/machine.tscn")
+@onready var input: InputComponent = %InputComponent
+var team: Node
+@export var arena: Node2D
+var available_machines: Array = []
+var installed_machines: Array = []
+var fighter_inputs: Array = []
+var fighter_outputs: Array = []
+var conveyor_belt_sections: Array = []
 
 
 func _ready() -> void:
 	print("Factory ready")
 
 
-func _process(delta: float) -> void:
-	for conveyor in conveyor_belt_sections:
-		conveyor.move(delta)
+func update(delta: float) -> void:
+	for belt in conveyor_belt_sections:
+		belt.move(delta)
+
+
+func move_fighter_to_arena(fighter: Node) -> void:
+	arena.add_child(fighter)
+
+
+func set_item(scene: PackedScene, dest_tile) -> void:
+	var item: Node2D = scene.instantiate()
+	item.position = dest_tile.position
+	add_child(item)
+
+
+func _process(_delta: float) -> void:
+	if input.mouse_click:
+		var mouse_click_on_factory: bool = input.mouse_position.x > self.position.x
+		if mouse_click_on_factory:
+			print("Factory click at ", input.mouse_position)

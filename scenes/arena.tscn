@@ -27,8 +27,9 @@ left_edge_position = 0.0
 top_edge_position = 0.0
 bottom_edge_position = 720.0
 
-[node name="Factory" parent="." unique_id=475884043 instance=ExtResource("5_7ft05")]
+[node name="Factory" parent="." unique_id=475884043 node_paths=PackedStringArray("arena") instance=ExtResource("5_7ft05")]
 position = Vector2(1262, 1)
+arena = NodePath("..")
 
 [node name="MouseCursor" parent="." unique_id=230875929 node_paths=PackedStringArray("arena") instance=ExtResource("5_4ag8t")]
 arena = NodePath("..")
