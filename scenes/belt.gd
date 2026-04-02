@@ -10,11 +10,10 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Adds new instance of product to fighter_inside.items
 	pass
 
 
 func move(delta: float) -> void:
-	# Puts fighter_inside to random belt section from next_sections
-	print("belt moves")
+	rotation += 1 * delta

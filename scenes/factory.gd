@@ -25,14 +25,16 @@ func move_fighter_to_arena(fighter: Node) -> void:
 	arena.add_child(fighter)
 
 
-func set_item(scene: PackedScene, dest_tile) -> void:
-	var item: Node2D = scene.instantiate()
-	item.position = dest_tile.position
-	add_child(item)
-
+func set_item(scene: PackedScene, dest_position: Vector2) -> void:
+	var new_item: Node2D = scene.instantiate()
+	new_item.position = dest_position
+	new_item.position.x -= position.x		# Adjust position to be relative to the factory
+	conveyor_belt_sections.append(new_item)
+	add_child(new_item)
 
 func _process(_delta: float) -> void:
 	if input.mouse_click:
-		var mouse_click_on_factory: bool = input.mouse_position.x > self.position.x
+		var mouse_click_on_factory: bool = input.mouse_position.x > position.x
 		if mouse_click_on_factory:
 			print("Factory click at ", input.mouse_position)
+			set_item(conveyor_belt_scene, input.mouse_position)
