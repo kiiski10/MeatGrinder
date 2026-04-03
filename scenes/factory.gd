@@ -33,8 +33,4 @@ func set_item(scene: PackedScene, dest_position: Vector2) -> void:
 	add_child(new_item)
 
 func _process(_delta: float) -> void:
-	if input.mouse_click:
-		var mouse_click_on_factory: bool = input.mouse_position.x > position.x
-		if mouse_click_on_factory:
-			print("Factory click at ", input.mouse_position)
-			set_item(conveyor_belt_scene, input.mouse_position)
+	pass
