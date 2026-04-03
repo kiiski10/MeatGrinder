@@ -4,6 +4,7 @@ var next_sections: Array [Sprite2D]
 var fighter_inside: Fighter
 var product: Sprite2D
 var processing_time: float = 20
+var factory_grid_position: Vector2
 
 
 func _ready() -> void:

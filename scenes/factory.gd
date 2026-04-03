@@ -9,15 +9,17 @@ var available_machines: Array = []
 var installed_machines: Array = []
 var fighter_inputs: Array = []
 var fighter_outputs: Array = []
-var conveyor_belt_sections: Array = []
+var conveyor_belt_sections: Dictionary[Vector2, Sprite2D] = {}
+var tilemap_layer: TileMapLayer
 
 
 func _ready() -> void:
 	print("Factory ready")
+	tilemap_layer = $TileMapLayer
 
 
 func update(delta: float) -> void:
-	for belt in conveyor_belt_sections:
+	for belt in conveyor_belt_sections.values():
 		belt.move(delta)
 
 
@@ -27,9 +29,8 @@ func move_fighter_to_arena(fighter: Node) -> void:
 
 func set_item(scene: PackedScene, dest_position: Vector2) -> void:
 	var new_item: Node2D = scene.instantiate()
-	new_item.position = dest_position
-	new_item.position.x -= position.x		# Adjust position to be relative to the factory
-	conveyor_belt_sections.append(new_item)
+	new_item.position = dest_position * 16
+	conveyor_belt_sections[dest_position] = new_item
 	add_child(new_item)
 
 func _process(_delta: float) -> void:

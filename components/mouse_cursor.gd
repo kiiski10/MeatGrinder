@@ -5,12 +5,13 @@ class_name MouseCursor extends Area2D
 @export var arena: Arena
 var grid_size: int = 16
 
+
 func _process(_delta: float) -> void:
 	var mouse_on_arena: bool = input.mouse_position.x < arena.factory.position.x
 	if mouse_on_arena:
 		position = input.mouse_position
 	else:
-		# Mouse click on factory snaps to grid
+		# Cursor movement on factory snaps to grid
 		var grid_position: Vector2 = (input.mouse_position - arena.factory.position) / grid_size
 		position = arena.factory.position + round(grid_position) * grid_size
 
@@ -23,16 +24,13 @@ func _process(_delta: float) -> void:
 				position
 			)
 		else:
-			print("Factory click at: ", input.mouse_position)
-			# check if there is already an item at the clicked position
-			var position_taken: bool = false
-			for i in arena.factory.conveyor_belt_sections:
-				if i.global_position.distance_to(global_position) < grid_size:
-					print("Item already at position: ", position)
-					position_taken = true
-					break
-			if not position_taken:
-				arena.factory.set_item(arena.factory.conveyor_belt_scene, position)
+			var factory_grid_position = arena.factory.tilemap_layer.local_to_map(position - arena.factory.position)
+			print("Factory click at: ", input.mouse_position, factory_grid_position)
+
+			if factory_grid_position in arena.factory.conveyor_belt_sections:
+				print("Item already at position: ", factory_grid_position)
+			else:
+				arena.factory.set_item(arena.factory.conveyor_belt_scene, factory_grid_position)				
 
 
 func _ready() -> void:
