@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 	if input.mouse_click:
 		if mouse_on_arena:
 			print("Arena click at: ", input.mouse_position)
-			var random_team = arena.team_instances[1]
+			var random_team = arena.team_instances[1] # Not actually random for now, just pick the second team
 			arena.create_fighter_to_team(
 				random_team,
 				position

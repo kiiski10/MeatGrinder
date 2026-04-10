@@ -16,11 +16,10 @@ shape = SubResource("RectangleShape2D_d1u82")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1600295937]
-scale = Vector2(2.6875, 2.375)
 texture = ExtResource("2_utdtv")
 offset = Vector2(0.55814075, 0.42105198)
 metadata/_edit_lock_ = true
 
-[node name="InputComponent" type="Node" parent="." unique_id=2085564708]
+[node name="InputComponent" type="Node" parent="." unique_id=151946308]
 script = ExtResource("3_utdtv")
 metadata/_custom_type_script = "uid://rdx7ynbup6rq"
