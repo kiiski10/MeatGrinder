@@ -27,9 +27,10 @@ func move_fighter_to_arena(fighter: Node) -> void:
 	arena.add_child(fighter)
 
 
-func set_item(scene: PackedScene, dest_position: Vector2) -> void:
+func set_item(scene: PackedScene, dest_position: Vector2, cursor_rotation: float) -> void:
 	var new_item: Node2D = scene.instantiate()
 	new_item.position = dest_position * 16
+	new_item.rotation_degrees = cursor_rotation
 	conveyor_belt_sections[dest_position] = new_item
 	add_child(new_item)
 

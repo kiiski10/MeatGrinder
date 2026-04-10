@@ -17,7 +17,7 @@ metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1600295937]
 texture = ExtResource("2_utdtv")
-offset = Vector2(0.55814075, 0.42105198)
+offset = Vector2(0, 0)
 metadata/_edit_lock_ = true
 
 [node name="InputComponent" type="Node" parent="." unique_id=151946308]
