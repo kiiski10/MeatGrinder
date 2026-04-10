@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://da0gbykunaplc"]
+
+[ext_resource type="Texture2D" uid="uid://cxqalsxttdcum" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0005.png" id="1_sx74a"]
+[ext_resource type="Texture2D" uid="uid://cddb8rqx3uvaj" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0001.png" id="2_3bl7h"]
+[ext_resource type="Texture2D" uid="uid://dxjho3vqqutwn" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0077.png" id="3_gasus"]
+[ext_resource type="Script" uid="uid://ciwkap6yhqgnh" path="res://scenes/item_menu.gd" id="4_3bl7h"]
+
+[node name="ItemMenu" type="Control" unique_id=819227825]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 10.0
+offset_bottom = 10.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("4_3bl7h")
+
+[node name="MenuButton" type="MenuButton" parent="." unique_id=374421014]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+toggle_mode = false
+item_count = 3
+popup/item_0/text = "Small gun"
+popup/item_0/icon = ExtResource("2_3bl7h")
+popup/item_0/id = 1
+popup/item_1/text = "Big gun"
+popup/item_1/icon = ExtResource("1_sx74a")
+popup/item_1/id = 0
+popup/item_2/text = "Conveyor belt"
+popup/item_2/icon = ExtResource("3_gasus")
+popup/item_2/id = 2
+
+[connection signal="mouse_exited" from="MenuButton" to="." method="_on_menu_button_mouse_exited"]

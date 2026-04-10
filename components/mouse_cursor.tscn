@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://c4qw0mb565gqc"]
 
 [ext_resource type="Script" uid="uid://c5ljq1hlf2wmq" path="res://components/mouse_cursor.gd" id="1_tw63r"]
-[ext_resource type="Texture2D" uid="uid://36a2486tm3hr" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0024.png" id="2_utdtv"]
+[ext_resource type="Texture2D" uid="uid://c00cgw5ixhs88" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0075.png" id="2_2mihg"]
 [ext_resource type="Script" uid="uid://rdx7ynbup6rq" path="res://components/input.gd" id="3_utdtv"]
+[ext_resource type="PackedScene" uid="uid://da0gbykunaplc" path="res://scenes/item_menu.tscn" id="4_anhob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1u82"]
 size = Vector2(42.5, 38)
@@ -16,10 +17,12 @@ shape = SubResource("RectangleShape2D_d1u82")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1600295937]
-texture = ExtResource("2_utdtv")
-offset = Vector2(0, 0)
+texture = ExtResource("2_2mihg")
 metadata/_edit_lock_ = true
 
 [node name="InputComponent" type="Node" parent="." unique_id=151946308]
 script = ExtResource("3_utdtv")
 metadata/_custom_type_script = "uid://rdx7ynbup6rq"
+
+[node name="ItemMenu" parent="." unique_id=819227825 instance=ExtResource("4_anhob")]
+unique_name_in_owner = true

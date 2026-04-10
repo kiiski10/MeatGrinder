@@ -2,9 +2,11 @@ class_name MouseCursor extends Area2D
 
 
 @onready var input: InputComponent = $InputComponent
+@onready var item_menu: ItemMenu = %ItemMenu
 @export var arena: Arena
 var grid_size: int = 16
 var factory_item_rotation: int = 0
+var selected_item: PackedScene = null
 
 
 func _process(_delta: float) -> void:
@@ -14,6 +16,8 @@ func _process(_delta: float) -> void:
 	if mouse_on_arena:
 		position = input.mouse_position
 		rotation_degrees = 0
+		if item_menu.visible:
+			item_menu.hide_menu()
 
 		if input.mouse_click:
 			if mouse_on_arena:
@@ -29,6 +33,13 @@ func _process(_delta: float) -> void:
 		var grid_position: Vector2 = (input.mouse_position - arena.factory.position) / grid_size
 		position = arena.factory.position + round(grid_position) * grid_size
 		rotation_degrees = factory_item_rotation
+		selected_item = arena.factory.conveyor_belt_scene
+		
+		if input.item_menu_toggle_pressed:
+			if item_menu.visible:
+				item_menu.hide_menu()
+			else:
+				item_menu.show_menu()
 
 		if input.mouse_click:
 			var factory_grid_position = arena.factory.tilemap_layer.local_to_map(position - arena.factory.position)
@@ -38,16 +49,16 @@ func _process(_delta: float) -> void:
 				print("Item already at position: ", factory_grid_position)
 			else:
 				arena.factory.set_item(
-					arena.factory.conveyor_belt_scene,
+					selected_item,
 					factory_grid_position,
 					rotation_degrees
 				)
 
 		elif input.mouse_wheel_up:
-			factory_item_rotation += 45
+			factory_item_rotation += 90
 
 		elif input.mouse_wheel_down:
-			factory_item_rotation -= 45
+			factory_item_rotation -= 90
 
 		if factory_item_rotation != rotation_degrees:
 			factory_item_rotation = clamp(0, 360, factory_item_rotation)

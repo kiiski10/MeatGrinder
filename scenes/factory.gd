@@ -34,5 +34,6 @@ func set_item(scene: PackedScene, dest_position: Vector2, cursor_rotation: float
 	conveyor_belt_sections[dest_position] = new_item
 	add_child(new_item)
 
+
 func _process(_delta: float) -> void:
 	pass
