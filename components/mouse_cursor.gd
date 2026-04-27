@@ -34,7 +34,7 @@ func _process(_delta: float) -> void:
 		position = arena.factory.position + round(grid_position) * grid_size
 		rotation_degrees = factory_item_rotation
 		selected_item = arena.factory.conveyor_belt_scene
-		
+
 		if input.item_menu_toggle_pressed:
 			if item_menu.visible:
 				item_menu.hide_menu()
@@ -61,7 +61,11 @@ func _process(_delta: float) -> void:
 			factory_item_rotation -= 90
 
 		if factory_item_rotation != rotation_degrees:
-			factory_item_rotation = clamp(0, 360, factory_item_rotation)
+			if factory_item_rotation >= 360:
+				factory_item_rotation = 0
+			elif factory_item_rotation < 0:
+				factory_item_rotation = 360
+			print("Cursor rotation: ", factory_item_rotation)
 			rotation_degrees = factory_item_rotation
 
 
