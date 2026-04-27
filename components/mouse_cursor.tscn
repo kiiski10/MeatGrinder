@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://c5ljq1hlf2wmq" path="res://components/mouse_cursor.gd" id="1_tw63r"]
 [ext_resource type="Texture2D" uid="uid://c00cgw5ixhs88" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0075.png" id="2_2mihg"]
 [ext_resource type="Script" uid="uid://rdx7ynbup6rq" path="res://components/input.gd" id="3_utdtv"]
-[ext_resource type="PackedScene" uid="uid://da0gbykunaplc" path="res://scenes/item_menu.tscn" id="4_anhob"]
+[ext_resource type="Texture2D" uid="uid://d2ceymdksxsn7" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0015.png" id="4_ijt3j"]
+[ext_resource type="Texture2D" uid="uid://iiqnrhl138ol" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0011.png" id="5_dfh61"]
+[ext_resource type="Texture2D" uid="uid://cvjduer78kv0y" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0064.png" id="6_7nruh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1u82"]
 size = Vector2(42.5, 38)
@@ -24,5 +26,23 @@ metadata/_edit_lock_ = true
 script = ExtResource("3_utdtv")
 metadata/_custom_type_script = "uid://rdx7ynbup6rq"
 
-[node name="ItemMenu" parent="." unique_id=819227825 instance=ExtResource("4_anhob")]
+[node name="Popup" type="Popup" parent="." unique_id=665708982]
+oversampling_override = 1.0
+title = "PopupMenu"
+always_on_top = true
+
+[node name="PopupMenu" type="PopupMenu" parent="Popup" unique_id=1713925051]
 unique_name_in_owner = true
+oversampling_override = 1.0
+size = Vector2i(124, 100)
+visible = true
+item_count = 3
+item_0/text = "Big gun"
+item_0/icon = ExtResource("4_ijt3j")
+item_0/id = 0
+item_1/text = "Small gun"
+item_1/icon = ExtResource("5_dfh61")
+item_1/id = 1
+item_2/text = "Belt"
+item_2/icon = ExtResource("6_7nruh")
+item_2/id = 2

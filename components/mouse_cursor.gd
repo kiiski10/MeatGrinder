@@ -2,22 +2,33 @@ class_name MouseCursor extends Area2D
 
 
 @onready var input: InputComponent = $InputComponent
-@onready var item_menu: ItemMenu = %ItemMenu
-@export var arena: Arena
+var context_menu: PopupMenu
+var arena: Arena
 var grid_size: int = 16
 var factory_item_rotation: int = 0
 var selected_item: PackedScene = null
+var menu_closed_frames_ago: int = -1
 
 
 func _process(_delta: float) -> void:
 	var mouse_on_arena: bool = input.mouse_position.x < arena.factory.position.x
 	var mouse_on_factory: bool = not mouse_on_arena
 
-	if mouse_on_arena:
+	# The delay is needed to avoid clicks from registering to arena or factory
+	# when closing the context menu by left clicking outside of it.
+	if menu_closed_frames_ago >= 0:
+		menu_closed_frames_ago += 1
+		if menu_closed_frames_ago >= 2:
+			menu_closed_frames_ago = -1
+		return
+
+	context_menu.position = input.mouse_position
+	if input.mouse_second_click:
+		context_menu.visible = not context_menu.visible
+
+	if mouse_on_arena and not context_menu.visible:
 		position = input.mouse_position
 		rotation_degrees = 0
-		if item_menu.visible:
-			item_menu.hide_menu()
 
 		if input.mouse_click:
 			if mouse_on_arena:
@@ -28,18 +39,12 @@ func _process(_delta: float) -> void:
 					position
 				)
 
-	elif mouse_on_factory:
+	elif mouse_on_factory and not context_menu.visible:
 		# Cursor movement on factory snaps to grid
 		var grid_position: Vector2 = (input.mouse_position - arena.factory.position) / grid_size
 		position = arena.factory.position + round(grid_position) * grid_size
 		rotation_degrees = factory_item_rotation
 		selected_item = arena.factory.conveyor_belt_scene
-
-		if input.item_menu_toggle_pressed:
-			if item_menu.visible:
-				item_menu.hide_menu()
-			else:
-				item_menu.show_menu()
 
 		if input.mouse_click:
 			var factory_grid_position = arena.factory.tilemap_layer.local_to_map(position - arena.factory.position)
@@ -64,10 +69,23 @@ func _process(_delta: float) -> void:
 			if factory_item_rotation >= 360:
 				factory_item_rotation = 0
 			elif factory_item_rotation < 0:
-				factory_item_rotation = 360
+				factory_item_rotation = 270
 			print("Cursor rotation: ", factory_item_rotation)
 			rotation_degrees = factory_item_rotation
 
 
 func _ready() -> void:
-	pass
+	context_menu = %PopupMenu
+	context_menu.visible = false
+	context_menu.popup_hide.connect(_on_context_menu_closed)
+	context_menu.index_pressed.connect(_on_context_menu_item_selected)
+
+
+func _on_context_menu_closed() -> void:
+	menu_closed_frames_ago = 0
+
+
+func _on_context_menu_item_selected(index: int) -> void:
+	var item_id = context_menu.get_item_id(index)
+	menu_closed_frames_ago = 0
+	print("Selected item id: ", item_id)
