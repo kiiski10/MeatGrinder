@@ -2,17 +2,19 @@ class_name MouseCursor extends Area2D
 
 
 @onready var input: InputComponent = $InputComponent
+@onready var pointer_sprite: Sprite2D = $Sprite2D
 var context_menu: PopupMenu
 var arena: Arena
 var grid_size: int = 16
 var factory_item_rotation: int = 0
-var selected_item: PackedScene = null
+var selected_item: Dictionary = {}
 var menu_closed_frames_ago: int = -1
 var available_menu_items: Array[Dictionary] = [
 	{
 		"label": "Small gun",
 		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0000.png"),
 		"attributes": {
+			"scene": load("res://scenes/small_gun.tscn"),
 			"type": "gun",
 			"damage": 10,
 			"range": 100,
@@ -23,6 +25,7 @@ var available_menu_items: Array[Dictionary] = [
 		"label": "Big gun",
 		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0005.png"),
 		"attributes": {
+			"scene": load("res://scenes/big_gun.tscn"),
 			"type": "gun",
 			"damage": 20,
 			"range": 150,
@@ -33,14 +36,15 @@ var available_menu_items: Array[Dictionary] = [
 		"label": "Conveyor belt",
 		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0141.png"),
 		"attributes": {
-			"type": "factory_part",
 			"scene": load("res://scenes/belt.tscn"),
+			"type": "factory_part",
 		},
 	},
 	{
 		"label": "Armor",
 		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0143.png"),
 		"attributes": {
+			"scene": load("res://scenes/armor.tscn"),
 			"type": "stat_modifier",
 			"damage_receive_multiplier": 0.8,
 		}
@@ -49,6 +53,7 @@ var available_menu_items: Array[Dictionary] = [
 		"label": "Speed boost",
 		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0145.png"),
 		"attributes": {
+			"scene": load("res://scenes/speed_boost.tscn"),
 			"type": "stat_modifier",
 			"speed_multiplier": 1.5,
 		}
@@ -104,20 +109,19 @@ func _process(_delta: float) -> void:
 		var grid_position: Vector2 = (input.mouse_position - arena.factory.position) / grid_size
 		position = arena.factory.position + round(grid_position) * grid_size
 		rotation_degrees = factory_item_rotation
-		selected_item = arena.factory.conveyor_belt_scene
 
 		if input.mouse_click:
 			var factory_grid_position = arena.factory.tilemap_layer.local_to_map(position - arena.factory.position)
 			print("Factory click at: ", input.mouse_position, factory_grid_position)
 
-			if factory_grid_position in arena.factory.conveyor_belt_sections:
-				print("Item already at position: ", factory_grid_position)
-			else:
-				arena.factory.set_item(
-					selected_item,
-					factory_grid_position,
-					rotation_degrees
-				)
+			if selected_item == {}:
+				print("No item selected to place on factory")
+				return
+			arena.factory.set_item(
+				selected_item["attributes"]["scene"],
+				factory_grid_position,
+				rotation_degrees
+			)
 
 		elif input.mouse_wheel_up:
 			factory_item_rotation += 90
@@ -152,3 +156,5 @@ func _on_context_menu_item_selected(index: int) -> void:
 	menu_closed_frames_ago = 0
 	var item_metadata = context_menu.get_item_metadata(item_id)
 	print("Selected item: ", item_metadata["name"], " ", item_metadata["attributes"])
+	selected_item = item_metadata
+	pointer_sprite.texture = item_metadata["icon"]

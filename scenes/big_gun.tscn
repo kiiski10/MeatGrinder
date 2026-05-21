@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d5lug06l34tb"]
+
+[ext_resource type="Texture2D" uid="uid://cxqalsxttdcum" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0005.png" id="1_cdlu8"]
+
+[node name="Node2D" type="Node2D" unique_id=1790572891]
+metadata/name = "big_gun"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028155697]
+z_index = 1
+texture = ExtResource("1_cdlu8")
