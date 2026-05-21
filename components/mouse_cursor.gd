@@ -8,6 +8,66 @@ var grid_size: int = 16
 var factory_item_rotation: int = 0
 var selected_item: PackedScene = null
 var menu_closed_frames_ago: int = -1
+var available_menu_items: Array[Dictionary] = [
+	{
+		"label": "Small gun",
+		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0000.png"),
+		"attributes": {
+			"type": "gun",
+			"damage": 10,
+			"range": 100,
+			"fire_rate": 1,
+		},
+	},
+	{
+		"label": "Big gun",
+		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0005.png"),
+		"attributes": {
+			"type": "gun",
+			"damage": 20,
+			"range": 150,
+			"fire_rate": 1.5,
+		},
+	},
+	{
+		"label": "Conveyor belt",
+		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0141.png"),
+		"attributes": {
+			"type": "factory_part",
+			"scene": load("res://scenes/belt.tscn"),
+		},
+	},
+	{
+		"label": "Armor",
+		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0143.png"),
+		"attributes": {
+			"type": "stat_modifier",
+			"damage_receive_multiplier": 0.8,
+		}
+	},
+	{
+		"label": "Speed boost",
+		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0145.png"),
+		"attributes": {
+			"type": "stat_modifier",
+			"speed_multiplier": 1.5,
+		}
+	},
+]
+
+
+func add_menu_item(label: String, item: Dictionary) -> void:
+	var item_name = label
+	var item_icon = item["icon"]
+	var item_attributes = item["attributes"]
+	var item_metadata = {
+		"id": context_menu.get_item_count(),
+		"name": item_name,
+		"icon": item_icon,
+		"attributes": item_attributes,
+	}
+	context_menu.add_icon_item(item_icon, item_name, item_metadata["id"])
+	context_menu.set_item_metadata(item_metadata["id"], item_metadata)
 
 
 func _process(_delta: float) -> void:
@@ -79,6 +139,8 @@ func _ready() -> void:
 	context_menu.visible = false
 	context_menu.popup_hide.connect(_on_context_menu_closed)
 	context_menu.index_pressed.connect(_on_context_menu_item_selected)
+	for item in available_menu_items:
+		add_menu_item(item["label"], item)
 
 
 func _on_context_menu_closed() -> void:
@@ -88,4 +150,5 @@ func _on_context_menu_closed() -> void:
 func _on_context_menu_item_selected(index: int) -> void:
 	var item_id = context_menu.get_item_id(index)
 	menu_closed_frames_ago = 0
-	print("Selected item id: ", item_id)
+	var item_metadata = context_menu.get_item_metadata(item_id)
+	print("Selected item: ", item_metadata["name"], " ", item_metadata["attributes"])
