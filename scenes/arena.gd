@@ -1,5 +1,6 @@
 class_name Arena extends Node2D
 @onready var input: InputComponent = %InputComponent
+@onready var factory: Node2D = $Factory
 
 
 var team_script = preload("res://scenes/team.gd")
@@ -71,11 +72,8 @@ func _on_fighter_spawn_timer_timeout():
 	)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if input.exit_game_pressed:
 		print("Bye!")
 		get_tree().quit()
-
-
-func physics_process(_delta: float) -> void:
-	input.update()
+	factory.update(delta)

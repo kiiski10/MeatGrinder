@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bf2khr8bjo8y7"]
+
+[ext_resource type="Texture2D" uid="uid://bx3itrld0olpa" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Tiles/Tiles/tile_0059.png" id="1_80u0l"]
+[ext_resource type="Script" uid="uid://owr66lsjltj0" path="res://scenes/belt.gd" id="1_frl70"]
+
+[node name="Belt" type="Sprite2D" unique_id=1583054231]
+texture = ExtResource("1_80u0l")
+script = ExtResource("1_frl70")
