@@ -1,11 +1,9 @@
 extends Node2D
 
 var conveyor_belt_scene: PackedScene = load("res://scenes/belt.tscn")
-var machine_scene: PackedScene = load("res://scenes/machine.tscn")
 @onready var input: InputComponent = %InputComponent
 var team: Node
 @export var arena: Node2D
-var available_machines: Array = []
 var fighter_inputs: Array = []
 var fighter_outputs: Array = []
 var installed_factory_items: Dictionary[Vector2, Array] = {}

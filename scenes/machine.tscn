@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://qx2or3sgcddn"]
-
-[ext_resource type="Script" uid="uid://brv7b404irjgv" path="res://scenes/machine.gd" id="1_a5lir"]
-
-[node name="Machine" type="Sprite2D" unique_id=1383762250]
-script = ExtResource("1_a5lir")

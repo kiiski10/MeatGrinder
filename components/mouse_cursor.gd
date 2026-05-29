@@ -69,6 +69,7 @@ func add_menu_item(label: String, item: Dictionary) -> void:
 	}
 	context_menu.add_icon_item(item_icon, item_name, item_metadata["id"])
 	context_menu.set_item_metadata(item_metadata["id"], item_metadata)
+	temp_scene_instance.queue_free()
 
 
 func _process(_delta: float) -> void:
