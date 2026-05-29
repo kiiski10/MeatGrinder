@@ -12,7 +12,6 @@ var menu_closed_frames_ago: int = -1
 var available_menu_items: Array[Dictionary] = [
 	{
 		"label": "Small gun",
-		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0000.png"),
 		"attributes": {
 			"scene": load("res://scenes/small_gun.tscn"),
 			"type": "gun",
@@ -23,7 +22,6 @@ var available_menu_items: Array[Dictionary] = [
 	},
 	{
 		"label": "Big gun",
-		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Weapons/Tiles/tile_0005.png"),
 		"attributes": {
 			"scene": load("res://scenes/big_gun.tscn"),
 			"type": "gun",
@@ -34,7 +32,6 @@ var available_menu_items: Array[Dictionary] = [
 	},
 	{
 		"label": "Conveyor belt",
-		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0141.png"),
 		"attributes": {
 			"scene": load("res://scenes/belt.tscn"),
 			"type": "factory_part",
@@ -42,7 +39,6 @@ var available_menu_items: Array[Dictionary] = [
 	},
 	{
 		"label": "Armor",
-		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0143.png"),
 		"attributes": {
 			"scene": load("res://scenes/armor.tscn"),
 			"type": "stat_modifier",
@@ -51,7 +47,6 @@ var available_menu_items: Array[Dictionary] = [
 	},
 	{
 		"label": "Speed boost",
-		"icon": load("res://assets/kenney_desert-shooter-pack_1.0/PNG/Interface/Tiles/tile_0145.png"),
 		"attributes": {
 			"scene": load("res://scenes/speed_boost.tscn"),
 			"type": "stat_modifier",
@@ -63,8 +58,9 @@ var available_menu_items: Array[Dictionary] = [
 
 func add_menu_item(label: String, item: Dictionary) -> void:
 	var item_name = label
-	var item_icon = item["icon"]
 	var item_attributes = item["attributes"]
+	var temp_scene_instance: Node2D = item_attributes["scene"].instantiate()
+	var item_icon = temp_scene_instance.find_child("Sprite2D").texture
 	var item_metadata = {
 		"id": context_menu.get_item_count(),
 		"name": item_name,
