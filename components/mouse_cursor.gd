@@ -3,6 +3,7 @@ class_name MouseCursor extends Area2D
 
 @onready var input: InputComponent = $InputComponent
 @onready var pointer_sprite: Sprite2D = $Sprite2D
+@onready var default_pointer: Sprite2D = $DefaultPointer
 var context_menu: PopupMenu
 var arena: Arena
 var grid_size: int = 16
@@ -84,12 +85,20 @@ func _process(_delta: float) -> void:
 			menu_closed_frames_ago = -1
 		return
 
+	# Show mouse pointer if context menu is open, hide it otherwise
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if context_menu.visible else Input.MOUSE_MODE_HIDDEN
+
 	context_menu.position = input.mouse_position
 	if input.mouse_second_click:
 		context_menu.visible = not context_menu.visible
 
 	if mouse_on_arena and not context_menu.visible:
 		position = input.mouse_position
+
+		# Show default mouse pointer on arena
+		default_pointer.visible = true
+		pointer_sprite.visible = false
+		pointer_sprite.texture = default_pointer.texture
 		rotation_degrees = 0
 
 		if input.mouse_click:
@@ -106,6 +115,13 @@ func _process(_delta: float) -> void:
 		var grid_position: Vector2 = (input.mouse_position - arena.factory.position) / grid_size
 		position = arena.factory.position + round(grid_position) * grid_size
 		rotation_degrees = factory_item_rotation
+
+		default_pointer.visible = false
+		pointer_sprite.visible = true
+
+		if selected_item:
+			# Change mouse pointer if item is selected
+			pointer_sprite.texture = selected_item["icon"]
 
 		if input.mouse_click:
 			var factory_grid_position = arena.factory.tilemap_layer.local_to_map(position - arena.factory.position)
@@ -136,6 +152,7 @@ func _process(_delta: float) -> void:
 
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	context_menu = %PopupMenu
 	context_menu.visible = false
 	context_menu.popup_hide.connect(_on_context_menu_closed)
@@ -154,4 +171,3 @@ func _on_context_menu_item_selected(index: int) -> void:
 	var item_metadata = context_menu.get_item_metadata(item_id)
 	print("Selected item: ", item_metadata["name"], " ", item_metadata["attributes"])
 	selected_item = item_metadata
-	pointer_sprite.texture = item_metadata["icon"]

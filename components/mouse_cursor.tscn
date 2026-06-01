@@ -15,6 +15,10 @@ position = Vector2(1.75, 1)
 shape = SubResource("RectangleShape2D_d1u82")
 metadata/_edit_lock_ = true
 
+[node name="DefaultPointer" type="Sprite2D" parent="." unique_id=2105680041]
+texture = ExtResource("2_2mihg")
+metadata/_edit_lock_ = true
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1600295937]
 texture = ExtResource("2_2mihg")
 metadata/_edit_lock_ = true
