@@ -127,14 +127,17 @@ func _process(_delta: float) -> void:
 			var factory_grid_position = arena.factory.tilemap_layer.local_to_map(position - arena.factory.position)
 			print("Factory click at: ", input.mouse_position, factory_grid_position)
 
-			if selected_item == {}:
+			if arena.factory.is_position_occupied(factory_grid_position):
+				print("Position is already occupied, removing item at ", factory_grid_position)
+				arena.factory.remove_item(factory_grid_position)
+			elif selected_item == {}:
 				print("No item selected to place on factory")
-				return
-			arena.factory.set_item(
-				selected_item["attributes"]["scene"],
-				factory_grid_position,
-				rotation_degrees
-			)
+			else:
+				arena.factory.set_item(
+					selected_item["attributes"]["scene"],
+					factory_grid_position,
+					rotation_degrees
+				)
 
 		elif input.mouse_wheel_up:
 			factory_item_rotation += 90

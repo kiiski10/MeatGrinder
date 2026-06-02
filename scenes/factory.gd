@@ -59,5 +59,22 @@ func set_item(scene: PackedScene, target_position: Vector2, cursor_rotation: flo
 	add_child(new_item)
 
 
+func remove_item(target_position: Vector2) -> void:
+	if is_position_occupied(target_position):
+		var item_array: Array = installed_factory_items[target_position]
+		if item_array.size() == 1:
+			var item = item_array[0]
+			print("Removing item at ", target_position, ": ", item.get_meta("name"))
+			item.queue_free()
+			installed_factory_items.erase(target_position)
+			return
+		else:
+			for item in item_array:
+				if item.get_meta("name") != "conveyor_belt":
+					print("Removing item at ", target_position)
+					item.queue_free()
+					return
+
+
 func _process(_delta: float) -> void:
 	pass
